@@ -29,11 +29,12 @@
 <body>
 
 <section class="bg-accent bg-position-center-top bg-no-repeat py-5"
-         style="background-image: url(js_css_src/TeleTrabajo/boa.png);">
+         style="background-image: url(js_css_src/TeleTrabajo/airplane2.png);">
     <div class="pb-lg-5 mb-lg-3">
         <div class="container py-lg-5 my-lg-5">
             <div class="row mb-4 mb-sm-5">
                 <div class="col-lg-7 col-md-9 text-center text-sm-left">
+                    <img src="js_css_src/TeleTrabajo/logo.png" style="width: 30%;">
                     <h1 class="text-white line-height-base"><span class='font-weight-light'>INFORMACIÓN</span> PARA
                         <span
                                 class='font-weight-light'>REINICIO</span> DE <span
@@ -129,8 +130,9 @@
           $("body").loading('start');
 
 
+          const ci = $formVerificarCi.find('#ci').val();
           config.init();
-          ajax_dyd.data = {ci: $formVerificarCi.find('#ci').val()};
+          ajax_dyd.data = {ci: ci.toUpperCase()};
           ajax_dyd.type = 'POST';
           ajax_dyd.url = 'pxp/lib/rest/organigrama/Teletrabajo/ConsultaFuncionarioTeletrabajo';
           ajax_dyd.dataType = 'json';
@@ -372,6 +374,7 @@
 
               if (typeof callback.ROOT.datos === "object") {
                 $('#mensaje').html(callback.ROOT.datos.mensaje);
+                $('#mensaje_captcha').hide();
               } else {
                 $('#mensaje').html(callback.ROOT.detalle.mensaje);
               }
@@ -401,6 +404,11 @@
         $formDatosFuncionario.find('#tipo_de_uso').parent().show();
       } else {
         $formDatosFuncionario.find('#tipo_de_uso').parent().hide();
+        alert('No aplicas para TeleTrabajo');
+      }
+    });
+    $formDatosFuncionario.find('#cuenta_con_internet').change(function () {
+      if ($('#cuenta_con_internet').val() === 'No') {
         alert('No aplicas para TeleTrabajo');
       }
     });
