@@ -496,6 +496,7 @@
         $formDatosFuncionario.find('#tipo_de_uso').parent().show();
       } else {
         $formDatosFuncionario.find('#tipo_de_uso').parent().hide();
+        $formDatosFuncionario.find('#tipo_de_uso').val('');
         alert('Podrías no aplicar a Tele Trabajo, si eliges esta opción!!!');
       }
     });
@@ -509,6 +510,10 @@
         $formDatosFuncionario.find('#tipo_transporte').parent().show();
       } else {
         $formDatosFuncionario.find('#tipo_transporte').parent().hide();
+        $formDatosFuncionario.find('#placa').parent().hide();
+        $formDatosFuncionario.find('#tipo_transporte').val('');
+        $formDatosFuncionario.find('#placa').val('');
+
       }
     });
     $formDatosFuncionario.find('#tipo_transporte').change(function () {
@@ -516,6 +521,8 @@
         $formDatosFuncionario.find('#placa').parent().show();
       } else {
         $formDatosFuncionario.find('#placa').parent().hide();
+        $formDatosFuncionario.find('#placa').val('');
+
       }
     });
 
