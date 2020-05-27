@@ -16,7 +16,7 @@ const Form = (function () {
         <div class="form-group ${column.class}">
                                     <label for="validationTooltip03">${column.label}</label>
                                     <select class="form-control custom-select" id="${name}" ${column.required && 'required'}>
-                                    <option value="">seleccione ${column.label}...</option>
+                                    <option value=""></option>
                                          ${column.options.map(function (option) {
             return `<option value="${option.value}">${option.label}</option>`;
         }).join('')}
@@ -30,7 +30,7 @@ const Form = (function () {
         const textField = `
         <div class="form-group ${column.class}">
                                     <label for="validationTooltip01">${column.label}</label>
-                                    <input class="form-control" type="${column.typeTextField ? column.typeTextField : 'text'}" id="${name}" placeholder="${column.placeholder}" value="${column.initialValue}" ${column.required && 'required'}>
+                                    <input class="form-control" type="${column.typeTextField ? column.typeTextField : 'text'}" id="${name}" placeholder="${column.placeholder}" value="${column.initialValue}" ${column.required && 'required'} ${column.disabled && 'disabled'} >
                                     <div class="valid-tooltip">${column.validTooltip && column.validTooltip}</div>
                                 </div>`;
         return textField;
