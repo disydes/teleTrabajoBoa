@@ -94,8 +94,7 @@
 <script>
   (function () {
 
-
-    clientRestPxp.setCredentialsPxp('admin', '202cb962ac59075b964b07152d234b70');
+    clientRestPxp.setCredentialsPxp('teletrabajo', '47cd5a62e69d2be4668ce5dc00018c74');
     clientRestPxp.genHeaders();
 
     let id_funcionario;
@@ -134,7 +133,7 @@
           config.init();
           ajax_dyd.data = {ci: ci.toUpperCase()};
           ajax_dyd.type = 'POST';
-          ajax_dyd.url = 'pxp/lib/rest/organigrama/Teletrabajo/ConsultaFuncionarioTeletrabajo';
+          ajax_dyd.url = 'rest/organigrama/Teletrabajo/ConsultaFuncionarioTeletrabajo';
           ajax_dyd.dataType = 'json';
           ajax_dyd.async = true;
           ajax_dyd.peticion_ajax(function (callback) {
@@ -364,7 +363,7 @@
             'g-recaptcha-response': captcha
           };
           ajax_dyd.type = 'POST';
-          ajax_dyd.url = 'pxp/lib/rest/organigrama/Teletrabajo/InsertarFuncionarioTeleTrabajo';
+          ajax_dyd.url = 'rest/organigrama/Teletrabajo/InsertarFuncionarioTeleTrabajo';
           ajax_dyd.dataType = 'json';
           ajax_dyd.async = true;
           ajax_dyd.peticion_ajax(function (callback) {

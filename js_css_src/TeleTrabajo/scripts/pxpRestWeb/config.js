@@ -14,13 +14,13 @@
 
     config = {
 
-        tipo_ruta:'IP', //PUEDE IR DOMINIO
+        tipo_ruta:'DOMINIO', //PUEDE IR DOMINIO
         host : '10.150.0.91',
-        usPxp:'admin', //usuario pxp
-        pwdPxp:'c36becaecef0685b4b6f722b05fd6427', //md5
+        usPxp:'teletrabajo', //usuario pxp
+        pwdPxp:'f312f81a6d8f35e46c457782752d5b1b', //md5
 
         IP : {ip:"10.150.0.91",carpeta:"kerp_ismael"},
-        DOMINIO : {url:"admin.disydes.com"},
+        DOMINIO : {url:"erpmobile.obairlines.bo"},
         ruta_servicio : 'kerp_ismael',
 
 
