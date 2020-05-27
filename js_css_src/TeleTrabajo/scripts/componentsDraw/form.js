@@ -16,7 +16,7 @@ const Form = (function () {
         <div class="form-group ${column.class}">
                                     <label for="validationTooltip03">${column.label}</label>
                                     <select class="form-control custom-select" id="${name}" ${column.required && 'required'}>
-                                    <option value="">Choose ${column.label}...</option>
+                                    <option value="">seleccione ${column.label}...</option>
                                          ${column.options.map(function (option) {
             return `<option value="${option.value}">${option.label}</option>`;
         }).join('')}

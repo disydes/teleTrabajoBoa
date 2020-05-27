@@ -117,7 +117,7 @@
 
         },
       },
-      buttonLabel: 'verificar Carnet',
+      buttonLabel: 'Verificar Carnet',
       submit: () => {
         console.log($formVerificarCi.find('#ci'))
 
@@ -227,7 +227,7 @@
         },
         nombre_cargo: {
           type: 'TextField',
-          label: 'cargo',
+          label: 'Cargo',
           initialValue: '',
           placeholder: 'escribe aqui',
           class: 'col-md-6',
@@ -403,12 +403,12 @@
         $formDatosFuncionario.find('#tipo_de_uso').parent().show();
       } else {
         $formDatosFuncionario.find('#tipo_de_uso').parent().hide();
-        alert('No aplicas para TeleTrabajo');
+        alert('Podrías no aplicar a Tele Trabajo, si eliges esta opción!!!');
       }
     });
     $formDatosFuncionario.find('#cuenta_con_internet').change(function () {
       if ($('#cuenta_con_internet').val() === 'No') {
-        alert('No aplicas para TeleTrabajo');
+        alert('Podrías no aplicar a Tele Trabajo, si eliges esta opción!!!');
       }
     });
     $formDatosFuncionario.find('#transporte_particular').change(function () {
