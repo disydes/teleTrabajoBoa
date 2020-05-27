@@ -29,7 +29,7 @@
 <body>
 
 <section class="bg-accent bg-position-center-top bg-no-repeat py-5"
-         style="background-image: url(img/home/marketplace-hero.jpg);">
+         style="background-image: url(js_css_src/TeleTrabajo/boa.png);">
     <div class="pb-lg-5 mb-lg-3">
         <div class="container py-lg-5 my-lg-5">
             <div class="row mb-4 mb-sm-5">
@@ -233,15 +233,19 @@
           validTooltip: '',
         },
 
-
         equipo_computacion: {
-          type: 'Switch',
-          label: '¿Cuenta con un equipo de computación en su hogar? `',
+          type: 'DropDown',
+          label: '¿Cuenta con un equipo de computación en su hogar?',
           initialValue: '',
-          placeholder: 'escribe aqui',
+          placeholder: '',
           class: 'col-md-12',
+          options: [
+            {label: 'Si', value: 'Si'},
+            {label: 'No', value: 'No'},
+          ],
           validTooltip: '',
-          required: true
+          invalidTooltip: '',
+          required: true,
         },
         tipo_de_uso: {
           type: 'DropDown',
@@ -348,7 +352,7 @@
           ajax_dyd.data = {
             id_funcionario: id_funcionario,
             ci: $formDatosFuncionario.find('#ci').val(),
-            equipo_computacion: ($formDatosFuncionario.find('#equipo_computacion').is(":checked")) ? 'Si' : 'No',
+            equipo_computacion: $formDatosFuncionario.find('#equipo_computacion').val(),
             tipo_de_uso: $formDatosFuncionario.find('#tipo_de_uso').val(),
             cuenta_con_internet: $formDatosFuncionario.find('#cuenta_con_internet').val(),
             zona_domicilio: $formDatosFuncionario.find('#zona_domicilio').val(),
@@ -391,11 +395,13 @@
     $formDatosFuncionario.find('#tipo_de_uso').parent().hide();
     $formDatosFuncionario.find('#tipo_transporte').parent().hide();
     $formDatosFuncionario.find('#placa').parent().hide();
+
     $formDatosFuncionario.find('#equipo_computacion').change(function () {
-      if ($('#equipo_computacion').is(":checked")) {
+      if ($('#equipo_computacion').val() === 'Si') {
         $formDatosFuncionario.find('#tipo_de_uso').parent().show();
       } else {
         $formDatosFuncionario.find('#tipo_de_uso').parent().hide();
+        alert('No aplicas para TeleTrabajo');
       }
     });
     $formDatosFuncionario.find('#transporte_particular').change(function () {
