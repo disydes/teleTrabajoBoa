@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>index</title>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" color="#fe6a6a" href="safari-pinned-tab.svg">
+    <meta name="msapplication-TileColor" content="#ffffff">
+
+    <link href="js_css_src/lib/loading/loading.css" rel="stylesheet">
+
+
+    <link rel="stylesheet" media="screen" href="js_css_src/TeleTrabajo/style-less/vendor.min.css">
+
+    <link rel="stylesheet" media="screen" id="main-styles" href="js_css_src/TeleTrabajo/style-less/theme.css">
+    <link rel="stylesheet" media="screen" href="js_css_src/TeleTrabajo/style-less/common.css">
+
+    <style>
+        form {
+            margin: auto !important;
+        }
+    </style>
+</head>
+<body>
+
+<section class="bg-accent bg-position-center-top bg-no-repeat py-5"
+         style="background-image: url(img/home/marketplace-hero.jpg);">
+    <div class="pb-lg-5 mb-lg-3">
+        <div class="container py-lg-5 my-lg-5">
+            <div class="row mb-4 mb-sm-5">
+                <div class="col-lg-7 col-md-9 text-center text-sm-left">
+                    <h1 class="text-white line-height-base"><span class='font-weight-light'>INFORMACIÓN</span> PARA
+                        <span
+                                class='font-weight-light'>REINICIO</span> DE <span
+                                class='font-weight-light'>ACTIVIDADES</span>
+                        <span class='font-weight-light'>BoA</span></h1>
+                    <h2 class="h5 text-white font-weight-light">Verifica tu CI</h2>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="container position-relative pt-3 pt-lg-0 pb-5 mt-lg-n10"
+         style="z-index: 10;">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12">
+            <div class="card border-0 box-shadow-lg">
+                <div class="card-body px-3 pt-grid-gutter pb-0">
+
+                    <div class="row no-gutters pl-1" id="formExampleCI">
+                    </div>
+                    <h2 class="h5 text-black-50 font-weight-light" id="mensaje"></h2>
+
+                    <br>
+                    <div class="row no-gutters pl-1" id="formExample">
+                    </div>
+                    <h2 class="h5 text-black-50 font-weight-light" id="mensaje_captcha"></h2>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script src="js_css_src/TeleTrabajo/scripts/pxpRestWeb/config.js"></script>
+
+<script src="js_css_src/TeleTrabajo/scripts/pxpRestWeb/md5.js"></script>
+<script src="js_css_src/TeleTrabajo/scripts/pxpRestWeb/mcrypt.js"></script>
+<script src="js_css_src/TeleTrabajo/scripts/pxpRestWeb/rijndael.js"></script>
+<script src="js_css_src/TeleTrabajo/scripts/pxpRestWeb/base64.js"></script>
+<script src="js_css_src/TeleTrabajo/scripts/pxpRestWeb/clientRestPxp.js"></script>
+
+<script src="js_css_src/TeleTrabajo/scripts/pxpRestWeb/ajax.js"></script>
+
+<!-- JavaScript libraries, plugins and custom scripts-->
+<script src="js_css_src/TeleTrabajo/scripts/vendor.min.js"></script>
+<script src="js_css_src/TeleTrabajo/scripts/prism.min.js"></script>
+<script src="js_css_src/TeleTrabajo/scripts/theme.min.js"></script>
+
+<script src="js_css_src/lib/loading/loading.js"></script>
+
+<script src="js_css_src/TeleTrabajo/scripts/componentsDraw/form.js"></script>
+<script>
+  (function () {
+
+
+    clientRestPxp.setCredentialsPxp('admin', '202cb962ac59075b964b07152d234b70');
+    clientRestPxp.genHeaders();
+
+    let id_funcionario;
+    const $formVerificarCi = $('#formExampleCI');
+    const $formDatosFuncionario = $('#formExample');
+    $formDatosFuncionario.hide();
+    $('#mensaje').hide();
+    $('#mensaje_captcha').hide();
+    const configJson = {
+      toDraw: $('#formExampleCI'),
+      columns: {
+        ci: {
+          type: 'TextField',
+          label: 'CI',
+          initialValue: '',
+          placeholder: 'escribe aqui',
+          class: 'col-md-12',
+          required: true,
+          validTooltip: 'Completado',
+
+        },
+      },
+      buttonLabel: 'verificar Carnet',
+      submit: () => {
+        console.log($formVerificarCi.find('#ci'))
+
+        const formValid = $('#formExampleCI').find('form')[0];
+        console.log(formValid)
+        console.log(formValid.checkValidity())
+        if (formValid.checkValidity() === true) {
+          //send data
+          $("body").loading('start');
+
+
+          config.init();
+          ajax_dyd.data = {ci: $formVerificarCi.find('#ci').val()};
+          ajax_dyd.type = 'POST';
+          ajax_dyd.url = 'pxp/lib/rest/organigrama/Teletrabajo/ConsultaFuncionarioTeletrabajo';
+          ajax_dyd.dataType = 'json';
+          ajax_dyd.async = true;
+          ajax_dyd.peticion_ajax(function (callback) {
+            $("body").loading('stop');
+
+            if (callback.datos.length > 0) {
+              if (callback.datos[0].registrado === 'Si') {
+                $formDatosFuncionario.hide();
+                $('#mensaje').html('Funcionario ya registrado').show();
+              } else {
+                $('#mensaje').hide();
+                $formDatosFuncionario.find('#apellido_paterno').val(callback.datos[0].apellido_paterno);
+                $formDatosFuncionario.find('#apellido_materno').val(callback.datos[0].apellido_materno);
+                $formDatosFuncionario.find('#ci').val(callback.datos[0].ci);
+                $formDatosFuncionario.find('#ci').val(callback.datos[0].ci);
+                $formDatosFuncionario.find('#zona_domicilio').val(callback.datos[0].direccion);
+                $formDatosFuncionario.find('#expedicion').val(callback.datos[0].expedicion);
+                $formDatosFuncionario.find('#gerencia').val(callback.datos[0].gerencia);
+                $formDatosFuncionario.find('#nombre').val(callback.datos[0].nombre);
+                $formDatosFuncionario.find('#nombre_cargo').val(callback.datos[0].nombre_cargo);
+                $formDatosFuncionario.show();
+
+                id_funcionario = callback.datos[0].id_funcionario;
+              }
+            } else {
+              $('#mensaje').html('No se ha encontrado el Funcionario').show();
+            }
+          });
+        }
+        formValid.classList.add('was-validated');
+
+
+      }
+    }
+    Form.init(configJson);
+
+    const configJson2 = {
+      toDraw: $('#formExample'),
+      columns: {
+        apellido_paterno: {
+          type: 'TextField',
+          label: 'Apellido Paterno',
+          initialValue: '',
+          placeholder: 'escribe aqui',
+          class: 'col-md-3',
+          validTooltip: '',
+
+
+        },
+        apellido_materno: {
+          type: 'TextField',
+          label: 'Apellido Materno',
+          initialValue: '',
+          placeholder: 'escribe aqui',
+          class: 'col-md-3',
+          validTooltip: '',
+
+        },
+        nombre: {
+          type: 'TextField',
+          label: 'Nombres',
+          initialValue: '',
+          placeholder: 'escribe aqui',
+          class: 'col-md-2',
+          validTooltip: '',
+
+        },
+        ci: {
+          type: 'TextField',
+          label: 'Nro CI',
+          initialValue: '',
+          placeholder: 'escribe aqui',
+          class: 'col-md-2',
+          validTooltip: '',
+        },
+        expedicion: {
+          type: 'TextField',
+          label: 'Lugar de Expedición: ',
+          initialValue: '',
+          placeholder: 'escribe aqui',
+          class: 'col-md-2',
+          validTooltip: '',
+        },
+        gerencia: {
+          type: 'TextField',
+          label: 'Gerencia',
+          initialValue: '',
+          placeholder: 'escribe aqui',
+          class: 'col-md-6',
+          validTooltip: '',
+        },
+        nombre_cargo: {
+          type: 'TextField',
+          label: 'cargo',
+          initialValue: '',
+          placeholder: 'escribe aqui',
+          class: 'col-md-6',
+          validTooltip: '',
+        },
+
+
+        equipo_computacion: {
+          type: 'Switch',
+          label: '¿Cuenta con un equipo de computación en su hogar? `',
+          initialValue: '',
+          placeholder: 'escribe aqui',
+          class: 'col-md-12',
+          validTooltip: '',
+          required: true
+        },
+        tipo_de_uso: {
+          type: 'DropDown',
+          label: 'Tipo de Uso',
+          initialValue: '',
+          placeholder: '',
+          class: 'col-md-12',
+          options: [
+            {label: 'Asignada por la empresa', value: 'Asignada por la empresa'},
+            {label: 'De uso personal', value: 'De uso personal'},
+            {label: 'Compartida con la familia', value: 'Compartida con la familia'},
+          ],
+          validTooltip: '',
+          invalidTooltip: '',
+          required: true,
+        },
+        cuenta_con_internet: {
+          type: 'DropDown',
+          label: '¿Cuenta con Conexión de Internet en su domicilio? ',
+          initialValue: '',
+          placeholder: '',
+          class: 'col-md-12',
+          options: [
+            {label: 'Si', value: 'Si'},
+            {label: 'No', value: 'No'},
+
+          ],
+          validTooltip: '',
+          invalidTooltip: '',
+          required: true,
+        },
+
+        zona_domicilio: {
+          type: 'TextField',
+          label: 'Zona Domicilio',
+          initialValue: '',
+          placeholder: 'escribe aqui',
+          class: 'col-md-12',
+          validTooltip: '',
+          required: true,
+        },
+        transporte_particular: {
+          type: 'DropDown',
+          label: '¿Asiste a las instalaciones en un trasporte particular?',
+          initialValue: '',
+          placeholder: '',
+          class: 'col-md-12',
+          options: [
+            {label: 'Si', value: 'Si'},
+            {label: 'No', value: 'No'},
+
+          ],
+          validTooltip: '',
+          invalidTooltip: '',
+          required: true,
+        },
+        tipo_transporte: {
+          type: 'DropDown',
+          label: '¿Asiste a las instalaciones en un trasporte particular?',
+          initialValue: '',
+          placeholder: '',
+          class: 'col-md-12',
+          options: [
+            {label: 'A pie', value: 'A pie'},
+            {label: 'Bicicleta', value: 'Bicicleta'},
+            {label: 'Moto', value: 'Moto'},
+            {label: 'Auto', value: 'Auto'},
+          ],
+          validTooltip: '',
+          invalidTooltip: '',
+          required: true,
+        },
+        placa: {
+          type: 'TextField',
+          label: 'Placa',
+          initialValue: '',
+          placeholder: 'escribe aqui',
+          class: 'col-md-12',
+          validTooltip: 'looks good',
+          required: true,
+        },
+        captcha: {
+          type: 'CaptchaGoogle',
+        },
+
+      },
+      buttonLabel: 'Enviar Datos',
+      submit: () => {
+        const formValid = $('#formExample').find('form')[0];
+        console.log(formValid)
+        console.log(formValid.checkValidity());
+
+        var captcha = $formDatosFuncionario.find("#g-recaptcha-response").val()
+        if(captcha === ''){
+          $('#mensaje_captcha').html('captcha no es valido').show();
+
+        }
+
+        if (formValid.checkValidity() === true && captcha !== '') {
+          //send data
+          $("body").loading('start');
+
+          config.init();
+          ajax_dyd.data = {
+            id_funcionario: id_funcionario,
+            ci: $formDatosFuncionario.find('#ci').val(),
+            equipo_computacion: ($formDatosFuncionario.find('#equipo_computacion').is(":checked")) ? 'Si' : 'No',
+            tipo_de_uso: $formDatosFuncionario.find('#tipo_de_uso').val(),
+            cuenta_con_internet: $formDatosFuncionario.find('#cuenta_con_internet').val(),
+            zona_domicilio: $formDatosFuncionario.find('#zona_domicilio').val(),
+            transporte_particular: $formDatosFuncionario.find('#transporte_particular').val(),
+            tipo_transporte: $formDatosFuncionario.find('#tipo_transporte').val(),
+            placa: $formDatosFuncionario.find('#placa').val(),
+            'g-recaptcha-response': captcha
+          };
+          ajax_dyd.type = 'POST';
+          ajax_dyd.url = 'pxp/lib/rest/organigrama/Teletrabajo/InsertarFuncionarioTeleTrabajo';
+          ajax_dyd.dataType = 'json';
+          ajax_dyd.async = true;
+          ajax_dyd.peticion_ajax(function (callback) {
+            $("body").loading('stop');
+
+            if (callback.ROOT.error === false) {
+
+              if (typeof callback.ROOT.datos === "object") {
+                $('#mensaje').html(callback.ROOT.datos.mensaje);
+              } else {
+                $('#mensaje').html(callback.ROOT.detalle.mensaje);
+              }
+              $('#mensaje').show();
+              $formDatosFuncionario.hide();
+              $formVerificarCi.hide();
+
+
+            }
+          });
+
+        }
+        formValid.classList.add('was-validated');
+
+      },
+    }
+    Form.init(configJson2);
+
+    //added captcha
+
+    $formDatosFuncionario.find('#tipo_de_uso').parent().hide();
+    $formDatosFuncionario.find('#tipo_transporte').parent().hide();
+    $formDatosFuncionario.find('#placa').parent().hide();
+    $formDatosFuncionario.find('#equipo_computacion').change(function () {
+      if ($('#equipo_computacion').is(":checked")) {
+        $formDatosFuncionario.find('#tipo_de_uso').parent().show();
+      } else {
+        $formDatosFuncionario.find('#tipo_de_uso').parent().hide();
+      }
+    });
+    $formDatosFuncionario.find('#transporte_particular').change(function () {
+      if ($('#transporte_particular').val() === 'Si') {
+        $formDatosFuncionario.find('#tipo_transporte').parent().show();
+      } else {
+        $formDatosFuncionario.find('#tipo_transporte').parent().hide();
+      }
+    });
+    $formDatosFuncionario.find('#tipo_transporte').change(function () {
+      if ($('#tipo_transporte').val() === 'Moto' || $('#tipo_transporte').val() === 'Auto') {
+        $formDatosFuncionario.find('#placa').parent().show();
+      } else {
+        $formDatosFuncionario.find('#placa').parent().hide();
+      }
+    });
+
+
+  })();
+</script>
+
+
+</body>
+</html>
