@@ -37,7 +37,7 @@
                     <h1 class="text-white line-height-base"><span class='font-weight-light'>Formulario</span> de solicitud
                         <span
                                 class='font-weight-light'>de cambio</span> de modalidad de trabajo </h1>
-                    <h2 class="h5 text-white font-weight-light">Verifica tu CI</h2>
+                    <h2 class="h5 text-white font-weight-light" id="verifica_ci">Verifica tu CI</h2>
 
                 </div>
             </div>
@@ -62,7 +62,7 @@
                     </div>
                     <h2 class="h5 text-black-50 font-weight-light" id="mensaje_captcha"></h2>
                     <h2 class="h5 text-black-50 font-weight-light" id="circular">
-                        El presente documento, conlleva la condición de confesión, verdad y certeza jurídica,además del consiguiente compromiso de cumplimiento de lo estipulado en la Circular Instructiva OB.AH.CI.02/2020. En caso de inexactitud, falsedad o incumplimiento la presente declaración, la mismapodrá estar sujeta a sanciones en el marco de la normativa vigente.Firma del Solicitante  Firma del Inmediato Superior
+                        El presente documento, conlleva la condición de confesión, verdad y certeza jurídica, además del consiguiente compromiso de cumplimiento de lo estipulado en la Circular Instructiva OB.AH.CI.02/2020. En caso de inexactitud, falsedad o incumplimiento, la presente declaración podrá estar sujeta a sanciones en el marco de la normativa vigente.
                     </h2>
 
 
@@ -160,6 +160,7 @@
                 $formDatosFuncionario.find('#nombre_cargo').val(callback.datos[0].nombre_cargo);
                 $formDatosFuncionario.show();
                 $('#circular').show();
+                $('#verifica_ci').hide();
 
                 id_funcionario = callback.datos[0].id_funcionario;
               }
@@ -484,15 +485,16 @@
 
                   doc.text(20, 80, 'Gerencia:');
                   doc.text(20, 90, 'Cargo:');
-                  doc.text(20, 100, 'Solicitud de Cambio de Modalidad');
-                  dias && doc.text(20, 110, 'Días de asistencia física a instalaciones de la empresa');
-                  doc.text(20, 130, 'Motivo de Solicitud');
+                  doc.text(20, 100, 'Solicitud de Cambio de Modalidad:');
+                  const puntosTitulos = dias ? 10 : 0;
+                  dias && doc.text(20, 110, 'Días de asistencia física a instalaciones de la empresa:');
+                  doc.text(20, 110 + puntosTitulos, 'Motivo de Solicitud:');
                   const puntos =  descMotivoSolicitud ? 20 : 0;
-                  descMotivoSolicitud && doc.text(20, 140, '¿Cuál?');
-                  doc.text(20, 150 + puntos, '¿El cargo que desempeñas en la empresa permite realizar teletrabajo?');
+                  descMotivoSolicitud && doc.text(20, 120 + puntosTitulos, '¿Cuál?');
+                  doc.text(20, 130 + puntos + puntosTitulos, '¿El cargo que desempeñas en la empresa permite realizar teletrabajo?');
 
-                  doc.text(20, 160 + puntos, '¿Cuenta con un equipo de computación en su hogar?');
-                  doc.text(20, 170 + puntos, '¿Cuenta con Conexión de Internet en su domicilio?');
+                  doc.text(20, 140 + puntos + puntosTitulos, '¿Cuenta con un equipo de computación en su hogar?');
+                  doc.text(20, 150 + puntos + puntosTitulos, '¿Cuenta con Conexión de Internet en su domicilio?');
 
                   doc.setFont("times");
                   doc.setFontType("normal");
@@ -507,12 +509,12 @@
                   doc.text(55, 90, $formDatosFuncionario.find('#nombre_cargo').val());
                   doc.text(90, 100, $formDatosFuncionario.find('#cambio_modalidad').val());
                   dias && doc.text(20, 120, dias);
-                  doc.text(70, 130, $formDatosFuncionario.find('#motivo_solicitud').val());
-                  descMotivoSolicitud && doc.text(strArrDesMotivoSolicitud, 50, 140);
-                  doc.text(170, 150 + puntos, $formDatosFuncionario.find('#aplica_teletrabajo').val());
+                  doc.text(70, 110 + puntosTitulos, $formDatosFuncionario.find('#motivo_solicitud').val());
+                  descMotivoSolicitud && doc.text(strArrDesMotivoSolicitud, 50, 120 + puntosTitulos);
+                  doc.text(170, 130 + puntos + puntosTitulos, $formDatosFuncionario.find('#aplica_teletrabajo').val());
 
-                  doc.text(170, 160 + puntos, $formDatosFuncionario.find('#equipo_computacion').val());
-                  doc.text(170, 170 + puntos, $formDatosFuncionario.find('#cuenta_con_internet').val());
+                  doc.text(170, 140 + puntos + puntosTitulos, $formDatosFuncionario.find('#equipo_computacion').val());
+                  doc.text(170, 150 + puntos + puntosTitulos, $formDatosFuncionario.find('#cuenta_con_internet').val());
 
 
 
@@ -520,7 +522,7 @@
                   doc.setFontType("bold");
                   doc.setFontSize(10);
                   //
-                  var circular = doc.splitTextToSize('El presente documento, conlleva la condición de confesión, verdad y certeza jurídica,además del consiguiente compromiso de cumplimiento de lo estipulado en la Circular Instructiva OB.AH.CI.02/2020. En caso de inexactitud, falsedad o incumplimiento la presente declaración, la mismapodrá estar sujeta a sanciones en el marco de la normativa vigente.Firma del Solicitante  Firma del Inmediato Superior', 150);
+                  var circular = doc.splitTextToSize('El presente documento, conlleva la condición de confesión, verdad y certeza jurídica, además del consiguiente compromiso de cumplimiento de lo estipulado en la Circular Instructiva OB.AH.CI.02/2020. En caso de inexactitud, falsedad o incumplimiento, la presente declaración podrá estar sujeta a sanciones en el marco de la normativa vigente.', 150);
                   doc.text(circular, 20, 190 + puntos);
                   doc.text(40, 230 + puntos, 'Firma del Solicitante');
                   doc.text(120, 230 + puntos, 'Firma del Inmediato Superior');
@@ -612,6 +614,11 @@
     $formDatosFuncionario.find('#motivo_solicitud').change(function () {
       if ($(this).val() === 'Enfermedad de base crónica' || $(this).val() === 'Otro') {
         $formDatosFuncionario.find('#desc_motivo_solicitud').parent().show();
+        if ($(this).val() === 'Enfermedad de base crónica'){
+          $formDatosFuncionario.find('#desc_motivo_solicitud').parent().find('label').text('¿Cuál? (Deberá presentar a RRHH el documento de diagnóstico emitido por CORDES)');
+        }else{
+          $formDatosFuncionario.find('#desc_motivo_solicitud').parent().find('label').text('¿Cuál?');
+        }
       } else {
         $formDatosFuncionario.find('#desc_motivo_solicitud').parent().hide();
         $formDatosFuncionario.find('#desc_motivo_solicitud').val('');
