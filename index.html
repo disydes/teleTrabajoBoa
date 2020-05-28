@@ -485,8 +485,8 @@
 
                   doc.text(20, 80, 'Gerencia:');
                   doc.text(20, 90, 'Cargo:');
-                  doc.text(20, 100, 'Solicitud de Cambio de Modalidad:');
-                  const puntosTitulos = dias ? 10 : 0;
+                  doc.text(20, 100, 'Solicitud de Cambio de Modalidad: ');
+                  const puntosTitulos = dias ? 20 : 0;
                   dias && doc.text(20, 110, 'Días de asistencia física a instalaciones de la empresa:');
                   doc.text(20, 110 + puntosTitulos, 'Motivo de Solicitud:');
                   const puntos =  descMotivoSolicitud ? 20 : 0;
@@ -507,7 +507,7 @@
 
                   doc.text(55, 80, $formDatosFuncionario.find('#gerencia').val());
                   doc.text(55, 90, $formDatosFuncionario.find('#nombre_cargo').val());
-                  doc.text(90, 100, $formDatosFuncionario.find('#cambio_modalidad').val());
+                  doc.text(95, 100, $formDatosFuncionario.find('#cambio_modalidad').val());
                   dias && doc.text(20, 120, dias);
                   doc.text(70, 110 + puntosTitulos, $formDatosFuncionario.find('#motivo_solicitud').val());
                   descMotivoSolicitud && doc.text(strArrDesMotivoSolicitud, 50, 120 + puntosTitulos);
@@ -526,7 +526,7 @@
                   doc.text(circular, 20, 190 + puntos);
                   doc.text(40, 230 + puntos, 'Firma del Solicitante');
                   doc.text(120, 230 + puntos, 'Firma del Inmediato Superior');
-                  doc.text(20, 250 + puntos, '(En caso que corresponda adjuntar a este formulario certificado medico de CORDES)');
+                  doc.text(20, 250 + puntos, '(En caso que corresponda, adjuntar a este formulario certificado médico de CORDES)');
                   doc.text(20, 260 + puntos, '(Su solicitud esta sujeta a una evaluación previa)');
 
 
