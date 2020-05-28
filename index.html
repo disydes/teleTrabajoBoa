@@ -98,6 +98,11 @@
     let id_funcionario;
     const $formVerificarCi = $('#formExampleCI');
     const $formDatosFuncionario = $('#formExample');
+
+    var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+    var f=new Date();
+    const date = f.getDate() + " de " + meses[f.getMonth()] + " de " + f.getFullYear();
+
     $formDatosFuncionario.hide();
     $('#mensaje').hide();
     $('#mensaje_captcha').hide();
@@ -468,7 +473,8 @@
                   doc.setFont("times");
                   doc.setFontType("normal");
                   doc.text(105, 40, 'Formulario de solicitud de cambio de modalidad de trabajo', null, null, 'center');
-
+                  doc.setFontSize(12);
+                  doc.text(140, 20, date);
 
                   doc.setFont("Verdana");
                   doc.setFontType("bold");
