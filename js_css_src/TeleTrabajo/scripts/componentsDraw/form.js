@@ -30,7 +30,7 @@ const Form = (function () {
         const textField = `
         <div class="form-group ${column.class}">
                                     <label for="validationTooltip01">${column.label}</label>
-                                    <input class="form-control" type="${column.typeTextField ? column.typeTextField : 'text'}" id="${name}" placeholder="${column.placeholder}" value="${column.initialValue}" ${column.required && 'required'} ${column.disabled && 'disabled'} >
+                                    <input class="form-control" type="${column.typeTextField ? column.typeTextField : 'text'}" id="${name}" maxlength="${column.maxLength ? column.maxLength : 100}" placeholder="${column.placeholder}" value="${column.initialValue}" ${column.required && 'required'} ${column.disabled && 'disabled'} >
                                     <div class="valid-tooltip">${column.validTooltip && column.validTooltip}</div>
                                 </div>`;
         return textField;

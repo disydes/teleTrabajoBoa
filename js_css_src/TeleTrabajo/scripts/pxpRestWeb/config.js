@@ -19,9 +19,9 @@
         usPxp:'teletrabajo', //usuario pxp
         pwdPxp:'f312f81a6d8f35e46c457782752d5b1b', //md5
 
-        IP : {ip:"10.150.0.91",carpeta:"kerp_ismael"},
+        IP : {ip:"10.150.0.91",carpeta:"kerp_ismael/pxp/lib"},
         DOMINIO : {url:"erpmobile.obairlines.bo"},
-        ruta_servicio : 'kerp_ismael',
+        ruta_servicio : 'kerp_ismael/pxp/lib',
 
 
         init :function () {
