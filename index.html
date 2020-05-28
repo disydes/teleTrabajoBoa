@@ -317,7 +317,8 @@
             {label: 'Enfermedad de base crónica', value: 'Enfermedad de base crónica'},
             {label: 'Gestación', value: 'Gestación'},
             {label: 'Lactancia', value: 'Lactancia'},
-            {label: 'Mayor de 65 años ', value: 'Mayor de 65 años '},
+            {label: 'Mayor de 65 años', value: 'Mayor de 65 años'},
+            {label: 'El cargo que desempeño en la empresa permite realizar teletrabajo', value: 'El cargo que desempeño en la empresa permite realizar teletrabajo'},
             {label: 'Otro', value: 'Otro'},
           ],
           validTooltip: '',
@@ -334,7 +335,7 @@
           maxLength: 200,
 
         },
-        aplica_teletrabajo: {
+        /*aplica_teletrabajo: {
           type: 'DropDown',
           label: '¿El cargo que desempeñas en la empresa permite realizar teletrabajo? (Esta Información será evaluada por su Jefe inmediato superior)',
           initialValue: '',
@@ -347,7 +348,7 @@
           validTooltip: '',
           invalidTooltip: '',
           required: true,
-        },
+        },*/
         equipo_computacion: {
           type: 'DropDown',
           label: '¿Cuenta con un equipo de computación en su hogar?',
@@ -444,7 +445,7 @@
               dias_asistencia_fisica: dias,
               motivo_solicitud: $formDatosFuncionario.find('#motivo_solicitud').val(),
               desc_motivo_solicitud: descMotivoSolicitud,
-              aplica_teletrabajo: $formDatosFuncionario.find('#aplica_teletrabajo').val(),
+              aplica_teletrabajo: '',
               'g-recaptcha-response': captcha
             };
             ajax_dyd.type = 'POST';
@@ -493,10 +494,9 @@
                   doc.text(20, 110 + puntosTitulos, 'Motivo de Solicitud:');
                   const puntos =  descMotivoSolicitud ? 20 : 0;
                   descMotivoSolicitud && doc.text(20, 120 + puntosTitulos, '¿Cuál?');
-                  doc.text(20, 130 + puntos + puntosTitulos, '¿El cargo que desempeñas en la empresa permite realizar teletrabajo?');
 
-                  doc.text(20, 140 + puntos + puntosTitulos, '¿Cuenta con un equipo de computación en su hogar?');
-                  doc.text(20, 150 + puntos + puntosTitulos, '¿Cuenta con Conexión de Internet en su domicilio?');
+                  doc.text(20, 130 + puntos + puntosTitulos, '¿Cuenta con un equipo de computación en su hogar?');
+                  doc.text(20, 140 + puntos + puntosTitulos, '¿Cuenta con Conexión de Internet en su domicilio?');
 
                   doc.setFont("times");
                   doc.setFontType("normal");
@@ -513,10 +513,9 @@
                   dias && doc.text(20, 120, dias);
                   doc.text(70, 110 + puntosTitulos, $formDatosFuncionario.find('#motivo_solicitud').val());
                   descMotivoSolicitud && doc.text(strArrDesMotivoSolicitud, 50, 120 + puntosTitulos);
-                  doc.text(170, 130 + puntos + puntosTitulos, $formDatosFuncionario.find('#aplica_teletrabajo').val());
 
-                  doc.text(170, 140 + puntos + puntosTitulos, $formDatosFuncionario.find('#equipo_computacion').val());
-                  doc.text(170, 150 + puntos + puntosTitulos, $formDatosFuncionario.find('#cuenta_con_internet').val());
+                  doc.text(170, 130 + puntos + puntosTitulos, $formDatosFuncionario.find('#equipo_computacion').val());
+                  doc.text(170, 140 + puntos + puntosTitulos, $formDatosFuncionario.find('#cuenta_con_internet').val());
 
 
 
